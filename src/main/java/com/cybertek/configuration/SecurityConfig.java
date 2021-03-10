@@ -50,19 +50,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+
+
 		http.cors().and().csrf().disable()
 		        .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
 		        .and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 				.authorizeRequests()
 				.antMatchers("/api/auth/**").permitAll()
-				.antMatchers("/api/report/**").permitAll()
-				.antMatchers("/api/user/**").permitAll()
-				.antMatchers("/api/task/**").permitAll()
-				.antMatchers("/api/project/**").permitAll()
+				.antMatchers("/api/rates").permitAll()
 				.anyRequest()
 				.authenticated();
 
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+
+
 	}
 }
